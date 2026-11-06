@@ -1,0 +1,16 @@
+event: control
+id: cursor:/start+?opaque
+data: {"cursor":"cursor:/start+?opaque","reason":"tail"}
+
+: heartbeat
+
+id: cursor:/running+?opaque
+event: session.status
+data: {"id":"running-1","type":"session.status","processed_at":"2026-11-06T00:00:00Z","data":{"status":"running"}}
+
+id: cursor:/message+?opaque
+event: agent.message
+data: {"id":"message-1","type":"agent.message","processed_at":"2026-11-06T00:00:00Z","data":{"content":[{"type":"text","text":"Complete result."}]}}
+
+event: interrupted-frame
+data: {

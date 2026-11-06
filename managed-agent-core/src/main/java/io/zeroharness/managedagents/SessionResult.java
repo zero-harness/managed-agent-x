@@ -51,11 +51,12 @@ public final class SessionResult {
         if (event.type().equals("event_start") || event.type().equals("event_delta")
                 || event.type().equals("agent.delta")) return;
         // Queued user events have no processed_at and cannot establish an execution boundary.
-        if (event.type().equals("user.message") && event.nativeEvent().path("processed_at").isNull()) return;
+        if (event.type().equals("user.message") && !event.nativeEvent().hasNonNull("processed_at")) return;
         if (event.id() == null || event.id().isBlank() || !seen.add(event.id())) return;
         if (!started) {
             started = inputEventId != null ? inputEventId.equals(event.id())
-                    : event.type().equals("user.message") || event.type().equals("session.status_running");
+                    : event.type().equals("user.message") || event.type().equals("session.status_running")
+                            || event.type().equals("agent.message") || event.type().equals("session.error");
             if (!started) return;
         }
         if (event.type().equals("agent.message")) messages.add(event);
@@ -66,6 +67,7 @@ public final class SessionResult {
                 stopReason = "";
             }
             case "session.status_idle" -> {
+                if (state == State.FAILED || state == State.TERMINATED) return;
                 stopReason = event.stopReason();
                 blockingIds = event.blockingEventIds();
                 state = switch (stopReason) {

@@ -1,0 +1,38 @@
+{
+  "items": [
+    {
+      "id": "old-idle",
+      "type": "session.status",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "data": {
+        "status": "idle",
+        "stop_reason": {
+          "type": "end_turn"
+        }
+      }
+    },
+    {
+      "id": "input-1",
+      "type": "user.message",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Do the task"
+          }
+        ]
+      }
+    },
+    {
+      "id": "running-1",
+      "type": "session.status",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "data": {
+        "status": "running"
+      }
+    }
+  ],
+  "next_page_token": "page:/2+?opaque",
+  "stream_cursor": "cursor:/history1+?opaque"
+}

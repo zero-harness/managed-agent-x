@@ -1,0 +1,10 @@
+: heartbeat
+
+event: session.status_running
+data: {"id":"running-1","type":"session.status_running","processed_at":"2026-11-06T00:00:00Z"}
+
+event: agent.message
+data: {"id":"message-1","type":"agent.message","processed_at":"2026-11-06T00:00:00Z","content":[{"type":"text","text":"Complete result."}]}
+
+event: interrupted-frame
+data: {

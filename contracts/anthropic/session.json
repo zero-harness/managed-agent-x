@@ -1,0 +1,10 @@
+{
+  "id": "session-1",
+  "status": "idle",
+  "environment_id": "environment-1",
+  "agent": {
+    "id": "agent-1",
+    "version": "1"
+  },
+  "type": "session"
+}

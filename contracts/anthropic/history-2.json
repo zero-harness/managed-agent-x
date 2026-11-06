@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "id": "message-1",
+      "type": "agent.message",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Complete result."
+        }
+      ]
+    },
+    {
+      "id": "idle-1",
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "stop_reason": {
+        "type": "end_turn"
+      }
+    }
+  ]
+}

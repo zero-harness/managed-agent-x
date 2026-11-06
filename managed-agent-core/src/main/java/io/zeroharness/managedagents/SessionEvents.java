@@ -1,5 +1,6 @@
 package io.zeroharness.managedagents;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -7,6 +8,21 @@ import java.util.stream.Stream;
 /** History recovery uses reads only; it never submits or restarts work. */
 public final class SessionEvents {
     private SessionEvents() {}
+
+    /** Polls durable history. Timeout returns the current snapshot and does not cancel remote work. */
+    public static SessionResult.Snapshot await(ManagedAgentClient.EventService events, String sessionId,
+                                                SessionResult result, Duration timeout) throws InterruptedException {
+        if (timeout.isNegative()) throw new IllegalArgumentException("timeout must not be negative");
+        long budget = timeout.toNanos();
+        long start = System.nanoTime();
+        do {
+            readHistory(events, sessionId, result);
+            var snapshot = result.snapshot();
+            long remaining = budget - (System.nanoTime() - start);
+            if (snapshot.stopped() || remaining <= 0) return snapshot;
+            java.util.concurrent.TimeUnit.NANOSECONDS.sleep(Math.min(remaining, 250_000_000L));
+        } while (true);
+    }
 
     public static void readHistory(ManagedAgentClient.EventService events, String sessionId,
                                    SessionResult result) {
@@ -42,6 +58,7 @@ public final class SessionEvents {
                 if (frame.event() == null || frame.event().id() == null) return true;
                 String type = frame.event().type();
                 if (type.equals("event_start") || type.equals("event_delta") || type.equals("agent.delta")) return true;
+                if (type.equals("user.message") && !frame.event().nativeEvent().hasNonNull("processed_at")) return true;
                 return seen.add(frame.event().id());
             });
             return new EventStream() {

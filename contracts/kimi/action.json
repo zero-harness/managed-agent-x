@@ -1,0 +1,14 @@
+{
+  "id": "action-1",
+  "type": "session.status",
+  "processed_at": "2026-11-06T00:00:00Z",
+  "data": {
+    "status": "idle",
+    "stop_reason": {
+      "type": "requires_action",
+      "event_ids": [
+        "tool-event-1"
+      ]
+    }
+  }
+}

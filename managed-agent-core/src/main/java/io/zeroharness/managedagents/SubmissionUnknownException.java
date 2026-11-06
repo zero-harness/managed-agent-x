@@ -5,7 +5,9 @@ public final class SubmissionUnknownException extends ManagedAgentException {
     private final String sessionId;
 
     public SubmissionUnknownException(String sessionId, Throwable cause) {
-        super("Submission outcome unknown; do not automatically resend", 0, null, cause);
+        super("Submission outcome unknown; do not automatically resend",
+                cause instanceof ManagedAgentException failure ? failure.statusCode() : 0,
+                cause instanceof ManagedAgentException failure ? failure.requestId() : null, cause);
         this.sessionId = sessionId;
     }
 

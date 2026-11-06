@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "id": "message-1",
+      "type": "agent.message",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Complete result."
+          }
+        ]
+      }
+    },
+    {
+      "id": "idle-1",
+      "type": "session.status",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "data": {
+        "status": "idle",
+        "stop_reason": {
+          "type": "end_turn"
+        }
+      }
+    }
+  ],
+  "stream_cursor": "cursor:/history2+?opaque"
+}

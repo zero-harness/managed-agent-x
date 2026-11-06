@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": "old-idle",
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "stop_reason": {
+        "type": "end_turn"
+      }
+    },
+    {
+      "id": "input-1",
+      "type": "user.message",
+      "processed_at": "2026-11-06T00:00:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Do the task"
+        }
+      ]
+    },
+    {
+      "id": "running-1",
+      "type": "session.status_running",
+      "processed_at": "2026-11-06T00:00:00Z"
+    }
+  ],
+  "next_page": "page:/2+?opaque"
+}
