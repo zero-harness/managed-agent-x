@@ -12,9 +12,11 @@
 
 ## Managed Agent 的优点
 
-托管 Harness 管理上下文，让 Agent 接着上一步工作；代码在隔离沙箱里运行。挂载记忆库后，新会话也能沿用项目约定，省去反复交代背景的工夫。
+- **少搭一套运行时**：平台维护推理循环和上下文，代码可在隔离沙箱中执行。
+- **长任务可后台运行**：客户端重连后可查看已保存的进度和结果。
+- **项目约定可复用**：挂载记忆库后，新会话也能读取已有约定。
 
-<a href="https://www.anthropic.com/engineering/managed-agents#the-session-is-not-claudes-context-window" target="_blank" rel="noopener noreferrer">Anthropic 的 Harness</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Kimi 的跨会话记忆</a>
+<a href="https://platform.claude.com/docs/en/managed-agents/overview" target="_blank" rel="noopener noreferrer">Claude 托管运行时</a> · <a href="https://docs.qoder.com/cloud-agents/sessions" target="_blank" rel="noopener noreferrer">Qoder 会话恢复</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Kimi 记忆库</a>
 
 ## 哪些厂商已经替你跑 Agent 循环？
 

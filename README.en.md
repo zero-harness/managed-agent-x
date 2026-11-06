@@ -12,9 +12,11 @@
 
 ## Why use a managed agent?
 
-A managed harness keeps track of the current task and runs code in an isolated sandbox. Attach a memory store and a new session can reuse project conventions without asking you to explain them again.
+- **Less infrastructure to maintain.** The platform manages the agent loop and context. Code can run in an isolated sandbox.
+- **Long tasks can run in the background.** Reconnect to check saved progress and results.
+- **Project conventions carry over.** Attach a memory store so new sessions can read the same conventions.
 
-<a href="https://www.anthropic.com/engineering/managed-agents#the-session-is-not-claudes-context-window" target="_blank" rel="noopener noreferrer">Anthropic’s harness</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Cross-session memory in Kimi</a>
+<a href="https://platform.claude.com/docs/en/managed-agents/overview" target="_blank" rel="noopener noreferrer">Claude runtime</a> · <a href="https://docs.qoder.com/cloud-agents/sessions" target="_blank" rel="noopener noreferrer">Qoder sessions</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Kimi memory</a>
 
 ## Who already runs the agent loop for you?
 
