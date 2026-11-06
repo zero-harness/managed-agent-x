@@ -32,10 +32,10 @@
 | Microsoft | <a href="https://learn.microsoft.com/azure/foundry/agents/concepts/prompt-agents" target="_blank" rel="noopener noreferrer">Foundry Prompt Agents</a> |
 | AWS | <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html" target="_blank" rel="noopener noreferrer">Amazon Bedrock AgentCore harness</a> |
 
-## Claude 的「脑手分离」架构
+## 美团 CatPaw 的「脑手分离」架构
 
-左侧的 Claude 与 Harness 决定下一步，右侧的 Sandbox 按需执行工具调用。同一个 Harness 可以调用多个沙箱。
+CatPaw Harness 规划步骤、选择工具。沙箱隔离执行代码和文件操作，服务端工具独立执行。顶部的 Session Queue 记录事件，供 Harness 重启后恢复上下文。
 
-![Anthropic 原图：左侧一组 Harness 与右侧一组 Sandbox 通过双向箭头连接](assets/anthropic-managed-agents.png)
+![美团妙手脑手分离架构：左侧为 Harness 决策循环，右侧为沙箱和服务端工具，顶部为可恢复事件队列](assets/catpaw-brain-hand-decoupling.png)
 
-<a href="https://www.anthropic.com/engineering/managed-agents#many-brains-many-hands" target="_blank" rel="noopener noreferrer">工程原文</a>
+<a href="https://catpaw.meituan.com/docs#/agent/architecture" target="_blank" rel="noopener noreferrer">来源：美团妙手 Managed Agents 技术架构</a>

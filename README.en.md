@@ -32,10 +32,10 @@ A managed harness keeps track of the current task and runs code in an isolated s
 | Microsoft | <a href="https://learn.microsoft.com/azure/foundry/agents/concepts/prompt-agents" target="_blank" rel="noopener noreferrer">Foundry Prompt Agents</a> |
 | AWS | <a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html" target="_blank" rel="noopener noreferrer">Amazon Bedrock AgentCore harness</a> |
 
-## How Claude separates the brain from the hands
+## How Meituan CatPaw separates planning from execution
 
-On the left, Claude and the harness decide what to do next. On the right, sandboxes execute tool calls on demand. One harness can use several sandboxes.
+The CatPaw harness plans each step and selects a tool. Sandboxes isolate code execution and file operations, while server tools run independently. The session queue records events so the harness can rebuild its context after a restart.
 
-![Anthropic diagram showing a stack of harnesses on the left and a stack of sandboxes on the right, with arrows in both directions](assets/anthropic-managed-agents.png)
+![CatPaw architecture with the harness on the left, sandboxes and server tools on the right, and a recoverable event queue above](assets/catpaw-brain-hand-decoupling.png)
 
-<a href="https://www.anthropic.com/engineering/managed-agents#many-brains-many-hands" target="_blank" rel="noopener noreferrer">Engineering article</a>
+<a href="https://catpaw.meituan.com/docs#/agent/architecture" target="_blank" rel="noopener noreferrer">Source: Meituan CatPaw Managed Agents architecture</a>
