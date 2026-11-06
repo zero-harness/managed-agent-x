@@ -10,9 +10,11 @@
 
 **Our goal is one config change to send the same task to Kimi instead of Claude.** We’re designing a common SDK for Java, Python, and Node.js to submit work and collect results. If your task needs stream recovery or human approval, the SDK will tell you which providers support it.
 
-## Who already runs the agent loop for you?
+## Why use a managed agent?
 
-These 11 providers host the agent and expose an API. You hand over the task. Their runtime drives the model and tools and returns the result.
+The platform runs the reasoning loop, coordinates tools, and maintains session state. Developers can submit tasks and retrieve results through an API, freeing them to focus on their application.
+
+## Who already runs the agent loop for you?
 
 | Provider | Adapter target · SDK in design |
 | --- | --- |
