@@ -2,15 +2,17 @@
 
 **简体中文** · <a href="README.en.md" target="_blank" rel="noopener noreferrer">English</a>　|　<a href="https://github.com/zero-harness/managed-agent-x" target="_blank" rel="noopener noreferrer">Java</a> · <a href="https://github.com/zero-harness/managed-agent-python" target="_blank" rel="noopener noreferrer">Python</a> · <a href="https://github.com/zero-harness/managed-agent-x-nodejs" target="_blank" rel="noopener noreferrer">Node.js</a>
 
-> 🔥 **2027 年，如果你还在自己写 Agent Harness、自己维护 ReAct Loop，你已经输在了起跑线上。**
+> 🔥 **2027 年，你还在写 Agent Harness、调 ReAct Loop，隔壁团队的 Agent 已经提了第一个 PR。**
+>
+> 写出循环只要几行。难的是凌晨两点，Agent 刚建完工单，连接断了。你敢直接重试吗？
 
-## 用一套 SDK 统一管理多厂商托管 Agent
+## 换一个托管 Agent，要改多少业务代码？
 
-让 Java、Python 和 Node.js 开发者用同一套操作管理各家的 **Managed Agents**：选择 Agent、提交输入、读取输出。会话续接、事件回放和审批按厂商能力提供。
+**我们希望你只改一处配置，就能把同一个任务从 Claude 切到 Kimi。** Managed Agent X 正在为 Java、Python 和 Node.js 设计统一 SDK。提交任务、读取结果用同一套调用；需要断线续读或人工审批时，SDK 会明确告诉你哪家支持。
 
-## 托管 Agent 名录
+## 哪些厂商已经替你跑 Agent 循环？
 
-只收录**由厂商托管 Agent 执行循环，且开放 API** 的产品。推理、工具调用和后续步骤都由云端驱动，应用可以直接派发任务。
+这 11 家都提供云端托管的 Agent 和调用 API。厂商负责驱动模型和工具，你把任务交给它，再取回结果。
 
 | 厂商 | 适配目标 · SDK 设计中 |
 | --- | --- |

@@ -2,15 +2,17 @@
 
 <a href="README.md" target="_blank" rel="noopener noreferrer">简体中文</a> · **English**　|　<a href="https://github.com/zero-harness/managed-agent-x" target="_blank" rel="noopener noreferrer">Java</a> · <a href="https://github.com/zero-harness/managed-agent-python" target="_blank" rel="noopener noreferrer">Python</a> · <a href="https://github.com/zero-harness/managed-agent-x-nodejs" target="_blank" rel="noopener noreferrer">Node.js</a>
 
-> 🔥 **In 2027, if you're still building your own Agent Harness and maintaining a ReAct loop, you're already behind at the starting line.**
+> 🔥 **It’s 2027. You’re tuning the ReAct loop in your agent harness. The team next door just got its first PR from a cloud agent.**
+>
+> The loop takes a few lines. The hard part comes at 2 a.m. Your agent just filed a ticket and the connection dropped. Would you hit retry?
 
-## One SDK to manage cloud-hosted agents
+## How much code should it take to switch agents?
 
-Our goal is to manage **Managed Agents across providers** from Java, Python, or Node.js. Use the same calls to select an agent, submit input, and read output. Session continuation, event replay, and approvals depend on the provider.
+**Our goal is one config change to send the same task to Kimi instead of Claude.** We’re designing a common SDK for Java, Python, and Node.js to submit work and collect results. If your task needs stream recovery or human approval, the SDK will tell you which providers support it.
 
-## Managed Agent directory
+## Who already runs the agent loop for you?
 
-We list services that **host the agent loop and expose the agent through an API**. The provider runs the reasoning and tool loop, so your application can delegate a task without operating its own harness.
+These 11 providers host the agent and expose an API. You hand over the task. Their runtime drives the model and tools and returns the result.
 
 | Provider | Adapter target · SDK in design |
 | --- | --- |
