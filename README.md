@@ -6,7 +6,7 @@
 
 ## 用一套 SDK 统一管理多厂商托管 Agent
 
-让 Java、Python 和 Node.js 开发者用同一套操作管理各家的 **Managed Agents**：开启会话、派发任务、跟踪进度、取回结果。
+让 Java、Python 和 Node.js 开发者用同一套操作管理各家的 **Managed Agents**：选择 Agent、提交输入、读取输出。会话续接、事件回放和审批按厂商能力提供。
 
 ## 托管 Agent 名录
 
@@ -21,9 +21,9 @@
 | 火山引擎 | [方舟 Managed Agents](https://docs.volcengine.com/docs/ark/start-session?lang=zh) |
 | Qoder | [Qoder Cloud Agents](https://docs.qoder.com/cloud-agents/overview) |
 | OpenAI | [Agents API（托管 Codex）](https://developers.openai.com/api/docs/guides/agents-api/architecture) |
-| Google | [Gemini Managed Agents（Antigravity、Deep Research）](https://ai.google.dev/gemini-api/docs/agents) |
+| Google | [Gemini Managed Agents（可配置的 Antigravity）](https://ai.google.dev/gemini-api/docs/custom-agents) |
 | Microsoft | [Foundry Prompt Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/prompt-agents) |
-| AWS | [Bedrock Agents Classic（仅限现有用户）](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html) |
+| AWS | [Amazon Bedrock AgentCore harness](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html) |
 
 ## Claude 的「脑手分离」架构
 

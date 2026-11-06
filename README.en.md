@@ -6,7 +6,7 @@
 
 ## One SDK to manage cloud-hosted agents
 
-Our goal is to manage **Managed Agents across providers** from Java, Python, or Node.js. Use the same calls to start a session, send a task, track its progress, and collect the result.
+Our goal is to manage **Managed Agents across providers** from Java, Python, or Node.js. Use the same calls to select an agent, submit input, and read output. Session continuation, event replay, and approvals depend on the provider.
 
 ## Managed Agent directory
 
@@ -21,9 +21,9 @@ We list services that **host the agent loop and expose the agent through an API*
 | Volcengine | [Ark Managed Agents](https://docs.volcengine.com/docs/ark/start-session?lang=zh) |
 | Qoder | [Qoder Cloud Agents](https://docs.qoder.com/cloud-agents/overview) |
 | OpenAI | [Agents API (managed Codex harness)](https://developers.openai.com/api/docs/guides/agents-api/architecture) |
-| Google | [Gemini Managed Agents (Antigravity and Deep Research)](https://ai.google.dev/gemini-api/docs/agents) |
+| Google | [Gemini Managed Agents (configurable Antigravity)](https://ai.google.dev/gemini-api/docs/custom-agents) |
 | Microsoft | [Foundry Prompt Agents](https://learn.microsoft.com/azure/foundry/agents/concepts/prompt-agents) |
-| AWS | [Bedrock Agents Classic (existing customers only)](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html) |
+| AWS | [Amazon Bedrock AgentCore harness](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/harness-vs-runtime.html) |
 
 ## How Claude separates the brain from the hands
 
