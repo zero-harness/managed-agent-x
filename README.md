@@ -30,8 +30,8 @@
 
 ## Claude 的「脑手分离」架构
 
-Harness 决定下一步，工具和沙箱负责执行，Session 保存历史。
+左侧的 Claude 与 Harness 决定下一步，右侧的 Sandbox 按需执行工具调用。同一个 Harness 可以调用多个沙箱。
 
-![Anthropic：Harness 与 Session、工具、沙箱和调度层的关系](assets/anthropic-managed-agents.png)
+![Anthropic 原图：左侧一组 Harness 与右侧一组 Sandbox 通过双向箭头连接](assets/anthropic-managed-agents.png)
 
-<a href="https://www.anthropic.com/engineering/managed-agents#decouple-the-brain-from-the-hands" target="_blank" rel="noopener noreferrer">工程原文</a>
+<a href="https://www.anthropic.com/engineering/managed-agents#many-brains-many-hands" target="_blank" rel="noopener noreferrer">工程原文</a>

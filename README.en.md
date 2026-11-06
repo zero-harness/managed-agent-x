@@ -30,8 +30,8 @@ These 11 providers host the agent and expose an API. You hand over the task. The
 
 ## How Claude separates the brain from the hands
 
-The harness decides the next step, tools and sandboxes execute it, and the session keeps the history.
+On the left, Claude and the harness decide what to do next. On the right, sandboxes execute tool calls on demand. One harness can use several sandboxes.
 
-![Anthropic architecture showing the harness, session log, tools, sandbox, and orchestration](assets/anthropic-managed-agents.png)
+![Anthropic diagram showing a stack of harnesses on the left and a stack of sandboxes on the right, with arrows in both directions](assets/anthropic-managed-agents.png)
 
-<a href="https://www.anthropic.com/engineering/managed-agents#decouple-the-brain-from-the-hands" target="_blank" rel="noopener noreferrer">Engineering article</a>
+<a href="https://www.anthropic.com/engineering/managed-agents#many-brains-many-hands" target="_blank" rel="noopener noreferrer">Engineering article</a>
