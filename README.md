@@ -6,9 +6,11 @@
 >
 > 写出循环只要几行。难的是凌晨两点，Agent 刚建完工单，连接断了。你敢直接重试吗？
 
-## 换一个托管 Agent，要改多少业务代码？
+## 为什么叫 Zero Harness？
 
-**我们希望你只改一处配置，就能把同一个任务从 Claude 切到 Kimi。** Managed Agent X 正在为 Java、Python 和 Node.js 设计统一 SDK。提交任务、读取结果用同一套调用；需要断线续读或人工审批时，SDK 会明确告诉你哪家支持。
+我们希望，今后做 Agent 应用，团队可以直接使用云厂商提供的 Harness。模型何时继续推理、何时调用工具、如何保存会话，都交给厂商运行。开发者只需定义任务、接入业务工具，并决定哪些操作需要审批。
+
+**Managed Agent X 以 Anthropic 的 Claude Managed Agents SDK 为基准。** Java、Python 和 Node.js 版将沿用 Agent、Environment、Session 和 Event 的资源语义。其他厂商由适配器映射到同一套调用；切换到满足任务要求的厂商时，业务代码只需换一处绑定。 <a href="https://github.com/anthropics/anthropic-sdk-java/tree/v3.6.0/anthropic-java-core/src/main/kotlin/com/anthropic/services/blocking/beta" target="_blank" rel="noopener noreferrer">Anthropic Java SDK 源码</a>
 
 ## Managed Agent 的优点
 

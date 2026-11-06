@@ -6,9 +6,11 @@
 >
 > The loop takes a few lines. The hard part comes at 2 a.m. Your agent just filed a ticket and the connection dropped. Would you hit retry?
 
-## How much code should it take to switch agents?
+## Why Zero Harness?
 
-**Our goal is one config change to send the same task to Kimi instead of Claude.** We’re designing a common SDK for Java, Python, and Node.js to submit work and collect results. If your task needs stream recovery or human approval, the SDK will tell you which providers support it.
+We want teams to build agent applications with a harness supplied and operated by their cloud provider. The provider runs the model and tool loop and maintains session state. Developers define the task, connect their business tools, and decide which actions need approval.
+
+**Managed Agent X takes Anthropic’s Claude Managed Agents SDK as its baseline.** The Java, Python, and Node.js editions will follow its Agent, Environment, Session, and Event semantics. Adapters will map other providers onto the same calls so an application can switch to another provider that meets its requirements by changing one binding. <a href="https://github.com/anthropics/anthropic-sdk-java/tree/v3.6.0/anthropic-java-core/src/main/kotlin/com/anthropic/services/blocking/beta" target="_blank" rel="noopener noreferrer">Anthropic Java SDK source</a>
 
 ## Why use a managed agent?
 
