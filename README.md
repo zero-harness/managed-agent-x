@@ -12,7 +12,9 @@
 
 ## Managed Agent 的优点
 
-平台托管推理循环、工具调用和会话状态。开发者通过 API 派发任务、取回结果，省去自建运行时的工作，把精力留给业务。
+托管 Harness 管理上下文，让 Agent 接着上一步工作；代码在隔离沙箱里运行。挂载记忆库后，新会话也能沿用项目约定，省去反复交代背景的工夫。
+
+<a href="https://www.anthropic.com/engineering/managed-agents#the-session-is-not-claudes-context-window" target="_blank" rel="noopener noreferrer">Anthropic 的 Harness</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Kimi 的跨会话记忆</a>
 
 ## 哪些厂商已经替你跑 Agent 循环？
 

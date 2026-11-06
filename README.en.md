@@ -12,7 +12,9 @@
 
 ## Why use a managed agent?
 
-The platform runs the reasoning loop, coordinates tools, and maintains session state. Developers can submit tasks and retrieve results through an API, freeing them to focus on their application.
+A managed harness keeps track of the current task and runs code in an isolated sandbox. Attach a memory store and a new session can reuse project conventions without asking you to explain them again.
+
+<a href="https://www.anthropic.com/engineering/managed-agents#the-session-is-not-claudes-context-window" target="_blank" rel="noopener noreferrer">Anthropic’s harness</a> · <a href="https://platform.kimi.com/docs/hosted-agents/memory" target="_blank" rel="noopener noreferrer">Cross-session memory in Kimi</a>
 
 ## Who already runs the agent loop for you?
 
