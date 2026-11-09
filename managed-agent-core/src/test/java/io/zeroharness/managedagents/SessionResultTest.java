@@ -66,4 +66,59 @@ class SessionResultTest {
         result.accept(event("{\"id\":\"done\",\"type\":\"session.status_idle\",\"stop_reason\":{\"type\":\"end_turn\"}}"));
         assertEquals(SessionResult.State.COMPLETED, result.snapshot().state());
     }
+
+    @Test
+    void restoringOneTurnDoesNotIncludeLaterTurns() throws Exception {
+        var first = SessionResult.forInput("input-1");
+        var second = SessionResult.forInput("input-2");
+        for (String json : java.util.List.of(
+                """
+                {"id":"input-1","type":"user.message","processed_at":"2026-11-09T00:00:00Z"}
+                """,
+                """
+                {"id":"answer-1","type":"agent.message","content":[{"type":"text","text":"First answer"}]}
+                """,
+                """
+                {"id":"done-1","type":"session.status_idle","stop_reason":{"type":"end_turn"}}
+                """,
+                """
+                {"id":"input-2","type":"user.message","processed_at":"2026-11-09T00:01:00Z"}
+                """,
+                """
+                {"id":"running-2","type":"session.status_running"}
+                """,
+                """
+                {"id":"answer-2","type":"agent.message","content":[{"type":"text","text":"Second answer"}]}
+                """,
+                """
+                {"id":"done-2","type":"session.status_idle","stop_reason":{"type":"end_turn"}}
+                """)) {
+            Event value = event(json);
+            first.accept(value);
+            second.accept(value);
+        }
+        assertEquals("First answer", first.snapshot().text());
+        assertEquals("Second answer", second.snapshot().text());
+        assertEquals(SessionResult.State.COMPLETED, first.snapshot().state());
+        assertEquals(SessionResult.State.COMPLETED, second.snapshot().state());
+    }
+
+    @Test
+    void anotherProcessedInputBeforeOutcomeMakesTurnUnknown() throws Exception {
+        var result = SessionResult.forInput("input-1");
+        result.accept(event("""
+            {"id":"input-1","type":"user.message","processed_at":"2026-11-09T00:00:00Z"}
+            """));
+        result.accept(event("""
+            {"id":"input-2","type":"user.message","processed_at":"2026-11-09T00:01:00Z"}
+            """));
+        result.accept(event("""
+            {"id":"next-answer","type":"agent.message","content":[{"type":"text","text":"Unattributable"}]}
+            """));
+        result.accept(event("""
+            {"id":"next-done","type":"session.status_idle","stop_reason":{"type":"end_turn"}}
+            """));
+        assertEquals(SessionResult.State.UNKNOWN, result.snapshot().state());
+        assertEquals("", result.snapshot().text());
+    }
 }

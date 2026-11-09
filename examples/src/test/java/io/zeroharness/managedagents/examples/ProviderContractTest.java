@@ -87,6 +87,44 @@ class ProviderContractTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"anthropic", "kimi"})
+    void sequentialTurnsShareSessionButKeepTheirResultsSeparate(String provider) throws Exception {
+        try (var fixture = new Fixture(provider); var client = fixture.client()) {
+            var results = ConversationDemo.run(client,
+                    new SessionCreateParams("agent-1", "environment-1", "Two turns"),
+                    "Do the task", "Continue using the previous context");
+            assertEquals(2, results.size());
+            assertEquals("Complete result.", results.get(0).text());
+            assertEquals("Follow-up result.", results.get(1).text());
+            assertTrue(results.stream().allMatch(result -> result.state() == SessionResult.State.COMPLETED));
+            assertEquals(1, fixture.creations);
+            assertEquals(2, fixture.submissions);
+            assertTrue(fixture.pages.contains("page:/3+?opaque"));
+            var restored = SessionResult.forInput("input-1");
+            SessionEvents.readHistory(client.beta().sessions().events(), "session-1", restored);
+            assertEquals("Complete result.", restored.snapshot().text());
+            assertEquals(1, restored.snapshot().messages().size());
+            assertNull(fixture.handlerFailure);
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"anthropic", "kimi"})
+    void conversationDoesNotSendAnotherTurnWhenActionIsRequired(String provider) throws Exception {
+        try (var fixture = new Fixture(provider); var client = fixture.client()) {
+            fixture.action = true;
+            var results = ConversationDemo.run(client,
+                    new SessionCreateParams("agent-1", "environment-1", "Action required"),
+                    "Do the task", "Must not be sent");
+            assertEquals(1, results.size());
+            assertEquals(SessionResult.State.NEEDS_ACTION, results.get(0).state());
+            assertEquals(List.of("tool-event-1"), results.get(0).blockingEventIds());
+            assertEquals(1, fixture.submissions);
+            assertNull(fixture.handlerFailure);
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"anthropic", "kimi"})
     void distinguishesActionFromCompletion(String provider) throws Exception {
         try (var fixture = new Fixture(provider); var client = fixture.client()) {
             fixture.action = true;
@@ -193,6 +231,7 @@ class ProviderContractTest {
         final List<String> pages = new ArrayList<>();
         final List<String> cursors = new ArrayList<>();
         volatile int submissions;
+        volatile int creations;
         volatile int streams;
         volatile boolean action;
         volatile boolean failWrite;
@@ -254,6 +293,7 @@ class ProviderContractTest {
                 String path = exchange.getRequestURI().getPath();
                 boolean post = exchange.getRequestMethod().equals("POST");
                 if (path.equals("/v1/sessions") && post) {
+                    creations++;
                     created = JSON.readTree(exchange.getRequestBody());
                     respond(exchange, 200, sample("session.json"), false);
                 } else if (path.endsWith("/events") && post) {
@@ -263,8 +303,9 @@ class ProviderContractTest {
                         exchange.close();
                         return;
                     }
-                    String response = provider.equals("kimi") ? "{\"event_id\":\"input-1\"}"
-                            : "{\"data\":[{\"id\":\"input-1\",\"type\":\"user.message\",\"processed_at\":null}]}";
+                    String inputId = "input-" + submissions;
+                    String response = provider.equals("kimi") ? "{\"event_id\":\"" + inputId + "\"}"
+                            : "{\"data\":[{\"id\":\"" + inputId + "\",\"type\":\"user.message\",\"processed_at\":null}]}";
                     respond(exchange, failWrite ? 500 : 202, failWrite
                             ? "{\"type\":\"error\",\"error\":{\"type\":\"api_error\",\"message\":\"Lost acknowledgement\"}}" : response, false);
                 } else if (path.endsWith("/events/stream")) {
@@ -277,7 +318,13 @@ class ProviderContractTest {
                     assertEquals("asc", query(exchange, "order"));
                     String token = query(exchange, provider.equals("kimi") ? "page_token" : "page");
                     pages.add(token);
-                    String response = sample(token == null ? "history-1.json" : "history-2.json");
+                    String response = sample(token == null ? "history-1.json"
+                            : token.equals("page:/3+?opaque") ? "history-3.json" : "history-2.json");
+                    if (submissions >= 2 && "page:/2+?opaque".equals(token)) {
+                        var page = (com.fasterxml.jackson.databind.node.ObjectNode) JSON.readTree(response);
+                        page.put(provider.equals("kimi") ? "next_page_token" : "next_page", "page:/3+?opaque");
+                        response = page.toString();
+                    }
                     if (action && token != null) {
                         var page = (com.fasterxml.jackson.databind.node.ObjectNode) JSON.readTree(response);
                         page.putArray(provider.equals("kimi") ? "items" : "data").add(JSON.readTree(sample("action.json")));

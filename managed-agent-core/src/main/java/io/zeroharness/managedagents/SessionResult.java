@@ -28,6 +28,8 @@ public final class SessionResult {
     private final Set<String> seen = new HashSet<>();
     private final List<Event> messages = new ArrayList<>();
     private boolean started;
+    private boolean finished;
+    private String observedInputId;
     private State state = State.RUNNING;
     private List<String> blockingIds = List.of();
     private String stopReason = "";
@@ -35,6 +37,7 @@ public final class SessionResult {
 
     private SessionResult(String inputEventId) {
         this.inputEventId = inputEventId;
+        this.observedInputId = inputEventId;
     }
 
     public static SessionResult forInput(String eventId) {
@@ -47,6 +50,8 @@ public final class SessionResult {
     }
 
     public void accept(Event event) {
+        // A completed turn must stay stable when replaying history containing later turns.
+        if (finished) return;
         // Previews may share IDs with complete messages. Never deduplicate on a preview ID.
         if (event.type().equals("event_start") || event.type().equals("event_delta")
                 || event.type().equals("agent.delta")) return;
@@ -54,10 +59,19 @@ public final class SessionResult {
         if (event.type().equals("user.message") && !event.nativeEvent().hasNonNull("processed_at")) return;
         if (event.id() == null || event.id().isBlank() || !seen.add(event.id())) return;
         if (!started) {
-            started = inputEventId != null ? inputEventId.equals(event.id())
+            started = inputEventId != null ? event.type().equals("user.message") && inputEventId.equals(event.id())
                     : event.type().equals("user.message") || event.type().equals("session.status_running")
                             || event.type().equals("agent.message") || event.type().equals("session.error");
             if (!started) return;
+        }
+        if (event.type().equals("user.message")) {
+            if (observedInputId != null && !observedInputId.equals(event.id())) {
+                // Without native turn correlation, overlapping inputs cannot be attributed safely.
+                state = State.UNKNOWN;
+                finished = true;
+                return;
+            }
+            observedInputId = event.id();
         }
         if (event.type().equals("agent.message")) messages.add(event);
         switch (event.type()) {
@@ -67,7 +81,6 @@ public final class SessionResult {
                 stopReason = "";
             }
             case "session.status_idle" -> {
-                if (state == State.FAILED || state == State.TERMINATED) return;
                 stopReason = event.stopReason();
                 blockingIds = event.blockingEventIds();
                 state = switch (stopReason) {
@@ -80,6 +93,7 @@ public final class SessionResult {
             case "session.status_terminated" -> state = State.TERMINATED;
             default -> { }
         }
+        finished = state == State.COMPLETED || state == State.FAILED || state == State.TERMINATED;
     }
 
     public Snapshot snapshot() {

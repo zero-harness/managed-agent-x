@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": "input-2",
+      "type": "user.message",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Continue using the previous context"
+        }
+      ]
+    },
+    {
+      "id": "running-2",
+      "type": "session.status_running",
+      "processed_at": "2026-11-09T00:01:00Z"
+    },
+    {
+      "id": "message-2",
+      "type": "agent.message",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Follow-up result."
+        }
+      ]
+    },
+    {
+      "id": "idle-2",
+      "type": "session.status_idle",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "stop_reason": {
+        "type": "end_turn"
+      }
+    }
+  ]
+}

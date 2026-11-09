@@ -1,0 +1,50 @@
+{
+  "items": [
+    {
+      "id": "input-2",
+      "type": "user.message",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Continue using the previous context"
+          }
+        ]
+      }
+    },
+    {
+      "id": "running-2",
+      "type": "session.status",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "data": {
+        "status": "running"
+      }
+    },
+    {
+      "id": "message-2",
+      "type": "agent.message",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "data": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Follow-up result."
+          }
+        ]
+      }
+    },
+    {
+      "id": "idle-2",
+      "type": "session.status",
+      "processed_at": "2026-11-09T00:01:00Z",
+      "data": {
+        "stop_reason": {
+          "type": "end_turn"
+        },
+        "status": "idle"
+      }
+    }
+  ],
+  "stream_cursor": "cursor:/turn2+?opaque"
+}

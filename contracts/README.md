@@ -11,6 +11,11 @@ The resumed stream repeats a complete message. Tests assert complete output is
 deduplicated and that recovery sends no additional input. Kimi's page token,
 SSE cursor and business event ID deliberately differ.
 
+`history-3.json` adds a second processed input and its result to the same session.
+Conversation tests expose this third page only after the second submission, then
+restore the first input from the entire history to check that its result stays
+separate. These are protocol fixtures, not evidence of model context retention.
+
 The public resource API implements a runtime subset of the Anthropic service shape,
 not binary compatibility with every official SDK DTO. Provisioning, tool-result
 submission, subthreads, automatic retries and cross-language reference formats are
